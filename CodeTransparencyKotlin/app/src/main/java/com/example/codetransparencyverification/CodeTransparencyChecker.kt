@@ -79,7 +79,9 @@ object CodeTransparencyChecker {
     private fun getApkSigningKeyCertificates(packageInfo: PackageInfo): List<String> =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             if (packageInfo.signingInfo.hasMultipleSigners()) {
-                throw AssertionError("Play App Signing does not support multiple signers.")
+                throw AssertionError(
+                    "Play App Signing does not support multiple signers."
+                )
             } else {
                 packageInfo.signingInfo.signingCertificateHistory.map { signature ->
                     getCertificateFingerprint(signature.toByteArray())
@@ -104,8 +106,11 @@ object CodeTransparencyChecker {
 
     private fun getCodeTransparencyJws(baseApkPath: String): JsonWebSignature =
         ZipFile(baseApkPath).use { baseApkFile ->
-            val transparencyFileEntry: ZipEntry = baseApkFile.getEntry(CODE_TRANSPARENCY_FILE_ENTRY_PATH)
-                ?: throw RuntimeException("Installed base APK does not contain code transparency file.")
+            val transparencyFileEntry: ZipEntry =
+              baseApkFile.getEntry(CODE_TRANSPARENCY_FILE_ENTRY_PATH)
+                ?: throw RuntimeException(
+                    "Installed base APK does not contain code transparency file."
+                )
 
             val serializedJwt: String =
                 getSerializedCodeTransparencyJws(baseApkFile, transparencyFileEntry)
@@ -114,7 +119,9 @@ object CodeTransparencyChecker {
             try {
                 JsonWebSignature.fromCompactSerialization(serializedJwt) as JsonWebSignature
             } catch (e: JoseException) {
-                throw RuntimeException("Error constructing JsonWebSignature from compact serialization.")
+                throw RuntimeException(
+                  "Error constructing JsonWebSignature from compact serialization."
+                )
             }
         }
 
