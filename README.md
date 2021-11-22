@@ -9,4 +9,4 @@ Read below for a description of each sample.
 Samples
 ----------
 
-* **[FolderNameForSample](FolderNameForSample)** (Kotlin) - Demonstrates feature associated with Package Manager APIs.
+* **[CodeTransparencyKotlin](CodeTransparencyKotlin)** (Kotlin) - Demonstrates feature associated with Package Manager APIs.
